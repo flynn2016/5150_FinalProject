@@ -8,6 +8,8 @@ public class Leader : MonoBehaviour {
     private Camera cam;
     NavMeshAgent agent;
     public Transform anchor;
+    public Transform slot;
+
     [HideInInspector]
     public Vector3 dest;
 
@@ -20,6 +22,8 @@ public class Leader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        this.transform.position = Vector3.Lerp(this.transform.position, new Vector3(slot.position.x, slot.position.y, slot.position.z),0.1f);
         if(Input.GetMouseButtonDown(0)){
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -28,8 +32,7 @@ public class Leader : MonoBehaviour {
                 dest = hit.point ;
                 Vector2 formation_dir = new Vector2(dest.x - anchor.position.x, dest.z - anchor.position.z);
                 Vector3 formation_pos = new Vector3(this.transform.position.x+formation_dir.normalized.x * 50, 15, this.transform.position.z + formation_dir.normalized.y*50);
-                Debug.Log(formation_dir.normalized);
-                agent.SetDestination(formation_pos);
+                //agent.SetDestination(slot.position);
             }
 
 
