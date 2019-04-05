@@ -39,8 +39,8 @@ GameObject:
   - component: {fileID: 33958776243057932}
   - component: {fileID: 23369695759301030}
   - component: {fileID: 136847182457613544}
-  - component: {fileID: 114217182856803018}
   - component: {fileID: 195240804574630674}
+  - component: {fileID: 114903180407527202}
   m_Layer: 0
   m_Name: mFootman
   m_TagString: myTroops
@@ -58,8 +58,6 @@ GameObject:
   - component: {fileID: 4246370651976528}
   - component: {fileID: 33409485554988054}
   - component: {fileID: 23170289174127078}
-  - component: {fileID: 114546056869480404}
-  - component: {fileID: 65764607072483612}
   m_Layer: 0
   m_Name: swordblend
   m_TagString: Untagged
@@ -86,9 +84,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332539259910174}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 10, z: 150}
-  m_LocalScale: {x: 15.000017, y: 15, z: 15.000017}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -72.5, y: 15, z: 50}
+  m_LocalScale: {x: 15.000048, y: 15, z: 15.000048}
   m_Children:
   - {fileID: 4767425464912800}
   - {fileID: 4246370651976528}
@@ -234,19 +232,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332539259910174}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65764607072483612
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1597437418113202}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.011587603, y: 0.005448679, z: 0.026485564}
-  m_Center: {x: 0.0003068954, y: 0.000000011771167, z: 0.008169659}
---- !u!114 &114217182856803018
+--- !u!114 &114903180407527202
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -257,18 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6c50d740e424fdb8c95fdcf1f3b4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 0}
---- !u!114 &114546056869480404
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1597437418113202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1de13b76ebf6e4908ac4b778f39d7016, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  anchor: {fileID: 0}
+  slot: {fileID: 0}
+  dest: {x: 0, y: 0, z: 0}
 --- !u!136 &136847182457613544
 CapsuleCollider:
   m_ObjectHideFlags: 1

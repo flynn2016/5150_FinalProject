@@ -1,37 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class FormationController : MonoBehaviour {
-    public GameObject footman;
-    private Vector3 spawnLocation;
-    private Leader[] troop_footman = new Leader[10];
-    private Vector3 anchor_point;
-    private int size_footman;
+    [HideInInspector]
+    public int formation_flag = 0;
+    [HideInInspector]
+    public Vector2 facing_dir;
+    public Transform leader;
+
+    private Camera cam;
+    NavMeshAgent agent;
+    private int troop_size;
+    private Vector3[] slots = new Vector3[20];
 	// Use this for initialization
 	void Start () {
-        anchor_point = this.transform.position;
-        troop_footman[0] = GameObject.Find("mFootman").GetComponent<Leader>();
-        size_footman = 1;
-        spawnLocation = new Vector3(this.transform.position.x-100, this.transform.position.y, this.transform.position.z);
+        cam = Camera.main;
+        agent = this.GetComponent<NavMeshAgent>();
+        facing_dir = new Vector2(1,0);
+        troop_size = 1;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (size_footman == 2)
+        if (Input.GetMouseButtonDown(0))
         {
-            Vector3 dest_1 = new Vector3(anchor_point.x, anchor_point.y, anchor_point.z + 100);
-            Vector3 dest_2 = new Vector3(anchor_point.x, anchor_point.y, anchor_point.z - 100);
-            troop_footman[0].Move(dest_1);
-            troop_footman[1].Move(anchor_point);
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (!EventSystem.current.IsPointerOverGameObject())
+                {
+                    agent.SetDestination(hit.point);
+                    facing_dir = new Vector2((hit.point.x - transform.position.x), (hit.point.z - transform.position.z)).normalized;
+                }
+            }
         }
-	}
+    }
 
-    public void AddFootman()
+    public void Set_formation(int index)
     {
-        GameObject curr_footman = Instantiate(footman, spawnLocation, Quaternion.Euler(0, 90, 0));
-        curr_footman.transform.parent= this.transform;
-        troop_footman[1] = curr_footman.GetComponent<Leader>();
-        size_footman++;
+        formation_flag = index;
     }
 }

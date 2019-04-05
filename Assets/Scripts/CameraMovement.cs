@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
-	public float speed = 10f;
+	public float speed = 100f;
 
     public void Update()
     {

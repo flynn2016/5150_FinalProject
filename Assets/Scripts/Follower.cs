@@ -3,31 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Follower : MonoBehaviour
-{
-    private Camera cam;
+public class Follower : MonoBehaviour {
     NavMeshAgent agent;
-    public Leader leader;
-    // Use this for initialization
-    void Start()
-    {
-        cam = Camera.main;
+    public Transform anchor;
+    public Transform[] slot = new Transform[2];
+
+    private Vector3 curr_slot;
+    private readonly float rotationSpeed = 5f;
+
+    private FormationController formationController;
+	// Use this for initialization
+	void Start () {
+        formationController = anchor.GetComponent<FormationController>();
         agent = this.GetComponent<NavMeshAgent>();
     }
+	
+	// Update is called once per frame
+	void Update () {
+        if (formationController.formation_flag == 1) {
+            curr_slot= slot[0].position;
+        }
+        else if (formationController.formation_flag == 2) {
+            curr_slot = slot[1].position;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
+        if(formationController.formation_flag != 0)
+        agent.SetDestination(curr_slot);
 
-            Debug.Log(leader.dest);
-            agent.SetDestination(GetFourthPoint(leader.transform.position, leader.dest, this.transform.position));
+        if (Vector3.Distance(curr_slot, this.transform.position) < 10)
+        {
+            RotateTowards();
+        }
     }
 
-    Vector3 GetFourthPoint(Vector3 a, Vector3 b, Vector3 x)
+    private void RotateTowards()
     {
-        Vector3 temp = new Vector3(x.x+b.x-a.x,5,x.z+b.z-a.z);
-
-        return temp;
+        Vector3 direction = new Vector3(formationController.facing_dir.x,0,formationController.facing_dir.y);
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
     }
-
 }
