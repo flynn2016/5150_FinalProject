@@ -5,29 +5,31 @@ using UnityEngine.AI;
 
 public class Follower : MonoBehaviour {
     NavMeshAgent agent;
-    public Transform anchor;
-    public Transform[] slot = new Transform[2];
-
+    private Transform anchor;
     private Vector3 curr_slot;
     private readonly float rotationSpeed = 5f;
+    private int index_troop;
 
     private FormationController formationController;
 	// Use this for initialization
 	void Start () {
+        anchor = GameObject.Find("Anchor").transform;
         formationController = anchor.GetComponent<FormationController>();
         agent = this.GetComponent<NavMeshAgent>();
+        index_troop = this.transform.GetSiblingIndex();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(formationController==null);
         if (formationController.formation_flag == 1) {
-            curr_slot= slot[0].position;
+            curr_slot = formationController.formation_1_slots[index_troop].position;
         }
         else if (formationController.formation_flag == 2) {
-            curr_slot = slot[1].position;
+            curr_slot = formationController.formation_2_slots[index_troop].position;
         }
 
-        if(formationController.formation_flag != 0)
+        if (formationController.formation_flag != 0)
         agent.SetDestination(curr_slot);
 
         if (Vector3.Distance(curr_slot, this.transform.position) < 10)
