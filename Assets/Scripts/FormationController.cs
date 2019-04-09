@@ -18,19 +18,22 @@ public class FormationController : MonoBehaviour {
     private Camera cam;
     NavMeshAgent agent;
     private int troop_size;
-    private int max_troop = 7;
+    private int max_troop = 10;
     [HideInInspector]
-    public Transform[] formation_1_slots = new Transform[7];
+    public Transform[] formation_1_slots;
     [HideInInspector]
-    public Transform[] formation_2_slots = new Transform[7];
+    public Transform[] formation_2_slots; 
     // Use this for initialization
     void Start () {
-        cam = Camera.main;
+    formation_1_slots = new Transform[max_troop];
+    formation_2_slots = new Transform[max_troop];
+    cam = Camera.main;
         agent = this.GetComponent<NavMeshAgent>();
         facing_dir = new Vector2(1,0);
-        troop_size = 7;
-        for(int i=0; i < 7; i++)
+        troop_size = 10;
+        for(int i=0; i < 10; i++)
         {
+            Debug.Log(i);
             formation_1_slots[i] = formation_1.GetChild(i);
             formation_2_slots[i] = formation_2.GetChild(i);
         }

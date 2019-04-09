@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 23369695759301030}
   - component: {fileID: 136847182457613544}
   - component: {fileID: 195240804574630674}
-  - component: {fileID: 114903180407527202}
+  - component: {fileID: 114297344441793848}
   m_Layer: 0
   m_Name: mFootman
   m_TagString: myTroops
@@ -85,8 +85,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332539259910174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -72.5, y: 15, z: 50}
-  m_LocalScale: {x: 15.000048, y: 15, z: 15.000048}
+  m_LocalPosition: {x: 50, y: 15, z: -7.5}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children:
   - {fileID: 4767425464912800}
   - {fileID: 4246370651976528}
@@ -232,7 +232,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1332539259910174}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114903180407527202
+--- !u!114 &114297344441793848
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,8 +265,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 100
-  m_Acceleration: 100
+  m_Speed: 80
+  m_Acceleration: 120
   avoidancePriority: 50
   m_AngularSpeed: 200
   m_StoppingDistance: 10

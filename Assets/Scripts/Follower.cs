@@ -21,7 +21,6 @@ public class Follower : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(formationController==null);
         if (formationController.formation_flag == 1) {
             curr_slot = formationController.formation_1_slots[index_troop].position;
         }
@@ -32,7 +31,7 @@ public class Follower : MonoBehaviour {
         if (formationController.formation_flag != 0)
         agent.SetDestination(curr_slot);
 
-        if (Vector3.Distance(curr_slot, this.transform.position) < 10)
+        if (Vector3.Distance(curr_slot, this.transform.position) < 15)
         {
             RotateTowards();
         }
