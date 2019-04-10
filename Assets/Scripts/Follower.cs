@@ -13,7 +13,38 @@ public class Follower : MonoBehaviour {
     private FormationController formationController;
 	// Use this for initialization
 	void Start () {
-        anchor = GameObject.Find("Anchor").transform;
+        if (this.transform.parent.name == "myTroop_1")
+        {
+            anchor = GameObject.Find("Anchor_troop1").transform;
+        }
+        else if (this.transform.parent.name == "myTroop_2")
+        {
+            anchor = GameObject.Find("Anchor_troop2").transform;
+        }
+        else if (this.transform.parent.name == "myTroop_3")
+        {
+            anchor = GameObject.Find("Anchor_troop3").transform;
+        }
+        else if (this.transform.parent.name == "myTroop_4")
+        {
+            anchor = GameObject.Find("Anchor_troop4").transform;
+        }
+        else if (this.transform.parent.name == "myTroop_5")
+        {
+            anchor = GameObject.Find("Anchor_troop5").transform;
+        }
+        else if (this.transform.parent.name == "myTroop_6")
+        {
+            anchor = GameObject.Find("Anchor_troop6").transform;
+        }
+        else if (this.transform.parent.name == "myTroop_7")
+        {
+            anchor = GameObject.Find("Anchor_troop7").transform;
+        }
+        else if (this.transform.parent.name == "myTroop_8")
+        {
+            anchor = GameObject.Find("Anchor_troop8").transform;
+        }
         formationController = anchor.GetComponent<FormationController>();
         agent = this.GetComponent<NavMeshAgent>();
         index_troop = this.transform.GetSiblingIndex();
@@ -21,17 +52,19 @@ public class Follower : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (formationController.formation_flag == 1) {
+        if (formationController.leader.formation_flag == 1) {
             curr_slot = formationController.formation_1_slots[index_troop].position;
         }
-        else if (formationController.formation_flag == 2) {
+        else if (formationController.leader.formation_flag == 2) {
             curr_slot = formationController.formation_2_slots[index_troop].position;
         }
 
-        if (formationController.formation_flag != 0)
-        agent.SetDestination(curr_slot);
+        if (formationController.leader.formation_flag != 0)
+        {
+            agent.SetDestination(curr_slot);
+        }
 
-        if (Vector3.Distance(curr_slot, this.transform.position) < 15)
+        if (Vector3.Distance(curr_slot, this.transform.position) < 25)
         {
             RotateTowards();
         }

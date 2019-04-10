@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMovement : MonoBehaviour {
-	public float speed = 100f;
+	public float speed;
 
-    public void Update()
+    private void Start()
+    {
+        speed = 200f;
+    }
+
+    private void Update()
     {
         //camera drag
         if (Input.GetMouseButton(0))
@@ -15,6 +20,16 @@ public class CameraMovement : MonoBehaviour {
             temp -= Input.GetAxis("Mouse X") * speed * Time.deltaTime * transform.right;
             temp -= Input.GetAxis("Mouse Y") * speed * Time.deltaTime * transform.up;
             transform.position = temp;
+        }
+
+        if(Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            Camera.main.fieldOfView--;
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            Camera.main.fieldOfView++;
         }
     }
 }
