@@ -29,17 +29,22 @@ public class Leader : MonoBehaviour {
         agent = this.GetComponent<NavMeshAgent>();
         leader_slots_1 = new Transform[max_leader];
         leader_slots_2 = new Transform[max_leader];
-        facing_dir = new Vector2(1,0);
+        if (this.name == "Enemy_Leader_anchors")
+            facing_dir = new Vector2(-1, 0);
+        else
+            facing_dir = new Vector2(1, 0);
         for (int i = 0; i < max_leader; i++)
         {
             leader_slots_1[i] = leader_formation_1.GetChild(i);
             leader_slots_2[i] = leader_formation_2.GetChild(i);
         }
+        formation_flag = 1;
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&Input.GetAxis("Mouse X")==0)
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -47,8 +52,8 @@ public class Leader : MonoBehaviour {
             {
                 if (!EventSystem.current.IsPointerOverGameObject())
                 {
-                    agent.SetDestination(hit.point);
-                    facing_dir = new Vector2((hit.point.x - transform.position.x), (hit.point.z - transform.position.z)).normalized;
+                    //agent.SetDestination(hit.point);
+                    //facing_dir = new Vector2((hit.point.x - transform.position.x), (hit.point.z - transform.position.z)).normalized;
                 }
             }
         }
@@ -57,5 +62,13 @@ public class Leader : MonoBehaviour {
     public void Set_formation(int index)
     {
         formation_flag = index;
+    }
+
+    public void StartWar()
+    {
+        if(this.name== "Leader_anchors")
+            agent.SetDestination(new Vector3 (300,0,0));
+        else
+            agent.SetDestination(new Vector3(-300, 0, 0));
     }
 }

@@ -61,11 +61,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AdvantagePoint.cs" />
     <Compile Include="Assets\Scripts\Behavior tree\ActionNode.cs" />
     <Compile Include="Assets\Scripts\Behavior tree\BehaviourTree.cs" />
     <Compile Include="Assets\Scripts\Behavior tree\Node.cs" />
     <Compile Include="Assets\Scripts\Behavior tree\Selector.cs" />
     <Compile Include="Assets\Scripts\Behavior tree\Sequencer.cs" />
+    <Compile Include="Assets\Scripts\Behaviour_Tree.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Follower.cs" />
     <Compile Include="Assets\Scripts\FormationController.cs" />

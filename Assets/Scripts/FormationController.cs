@@ -15,12 +15,11 @@ public class FormationController : MonoBehaviour {
     public Transform myTroop;
     public GameObject Footman_prefab;
     public Transform spawnLocation;
-    [HideInInspector]
     public Leader leader;
 
     private Camera cam;
     NavMeshAgent agent;
-    private int troop_size;
+    public int troop_size;
     private int max_troop = 10;
     private Vector3 curr_slot;
     private int index_troop;
@@ -28,9 +27,10 @@ public class FormationController : MonoBehaviour {
     public Transform[] formation_1_slots;
     [HideInInspector]
     public Transform[] formation_2_slots; 
+
+    public Transform army_anchors;
     // Use this for initialization
     void Start () {
-    leader = GameObject.Find("Leader_anchors").GetComponent<Leader>();
     formation_1_slots = new Transform[max_troop];
     formation_2_slots = new Transform[max_troop];
     cam = Camera.main;
@@ -64,8 +64,6 @@ public class FormationController : MonoBehaviour {
             RotateTowards();
         }
     }
-
-
 
     public void Remove_footman() {
         if (myTroop.childCount > 0)

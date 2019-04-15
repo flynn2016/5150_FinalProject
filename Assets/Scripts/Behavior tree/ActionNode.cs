@@ -1,14 +1,4 @@
-﻿/* Acknowledge:
-    The behavior tree section was modified from book:
-    <Unity 2017 Game AI Programming - Third Edition>
-            by Thet Naing Swe, Aung Sithu Kyaw, Ray Barrera   
-    link: https://learning.oreilly.com/library/view/unity-2017-game/9781788477901/        
-*/
-
-// NOTE:
-// ActionNode is for both action and condition tasks
-
-using System;
+﻿using System;
 using UnityEngine;
 using System.Collections;
 
@@ -27,6 +17,7 @@ public class ActionNode : Node
 
     public override NodeStates Execute()
     {
+
         switch (action())
         {
             case NodeStates.SUCCESS:
