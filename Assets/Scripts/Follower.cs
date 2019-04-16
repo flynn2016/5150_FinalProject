@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Follower : MonoBehaviour {
+    private Transform zone_red;
+    private Transform zone_blue;
+    private Transform closest_zone;
     NavMeshAgent agent;
     private Transform anchor;
     private Vector3 curr_slot;
@@ -54,6 +57,8 @@ public class Follower : MonoBehaviour {
         {
             anchor = Army_anchors.GetChild(7);
         }
+        zone_blue = GameObject.Find("Zone_blue").transform;
+        zone_red = GameObject.Find("Zone_red").transform;
         formationController = anchor.GetComponent<FormationController>();
         agent = this.GetComponent<NavMeshAgent>();
         index_troop = this.transform.GetSiblingIndex();
@@ -70,10 +75,30 @@ public class Follower : MonoBehaviour {
         }
 
         if (formationController.leader.formation_flag == 1) {
-            curr_slot = formationController.formation_1_slots[index_troop].position;
+            if(formationController.leader.subform_flag == 1)
+                curr_slot = formationController.formation_1_slots[index_troop].position;
+            else
+                curr_slot = formationController.formation_2_slots[index_troop].position;
         }
         else if (formationController.leader.formation_flag == 2) {
-            curr_slot = formationController.formation_2_slots[index_troop].position;
+            if (formationController.leader.subform_flag == 1)
+                curr_slot = formationController.formation_1_slots[index_troop].position;
+            else
+                curr_slot = formationController.formation_2_slots[index_troop].position;
+        }
+        else if (formationController.leader.formation_flag == 3)
+        {
+            if (formationController.leader.subform_flag == 1)
+                curr_slot = formationController.formation_1_slots[index_troop].position;
+            else
+                curr_slot = formationController.formation_2_slots[index_troop].position;
+        }
+        else if (formationController.leader.formation_flag == 4)
+        {
+            if (formationController.leader.subform_flag == 1)
+                curr_slot = formationController.formation_1_slots[index_troop].position;
+            else
+                curr_slot = formationController.formation_2_slots[index_troop].position;
         }
 
         if (Vector3.Distance(curr_slot, this.transform.position) < 25)
@@ -93,7 +118,11 @@ public class Follower : MonoBehaviour {
             {
                 if (hitColliders[i].tag == "Enemy")
                 {
-                    health-=5;
+                    if (zone_red.GetComponent<AdvantagePoint>().zone_control == 1)
+                        health += 0.5f;
+                    if(zone_blue.GetComponent<AdvantagePoint>().zone_control == 1)
+                        health += 0.5f;
+                    health -=5;
                     health += alley_nearby * 0.1f;
                 }
             }
@@ -102,7 +131,11 @@ public class Follower : MonoBehaviour {
             {
                 if (hitColliders[i].tag == "Mine")
                 {
-                    health-=5;
+                    if (zone_red.GetComponent<AdvantagePoint>().zone_control == 2)
+                        health += 0.5f;
+                    if (zone_blue.GetComponent<AdvantagePoint>().zone_control == 2)
+                        health += 0.5f;
+                    health -=5;
                     health += alley_nearby * 0.1f;
                 }
             }
@@ -127,20 +160,11 @@ public class Follower : MonoBehaviour {
 
     public bool EnemyInSight()
     {
-        float temp_nearest_dst = float.MaxValue;
         int temp_count = 0;
         Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, detect_radius);
         
         for(int i = 0; i < hitColliders.Length; i++)
         {
-            /*temp_dst = Vector3.Distance(this.transform.position, hitColliders[i].transform.position);
-            if (temp_dst < temp_nearest_dst)
-            {
-                temp_nearest_dst = temp_dst;
-                if (hitColliders[i].transform != this.transform)
-                    temp = hitColliders[i].transform;
-            }*/
-
             if (this.tag == "Mine")
             {
                 if (hitColliders[i].tag == "Enemy")
@@ -162,10 +186,30 @@ public class Follower : MonoBehaviour {
                     target = hitColliders[i].transform;
                     return true;
                 }
+                else if (hitColliders[i].tag == "Enemy")
+                {
+                    temp_count++;
+                }
             }
         }
         alley_nearby = temp_count;
         return false;
+    }
+
+    public bool AreaInSight()
+    {
+        if (Vector3.Distance(this.transform.position, zone_blue.position) < 100 )
+        {
+            closest_zone = zone_blue;
+            return true;
+        }   
+        else if(Vector3.Distance(this.transform.position, zone_red.position) < 100)
+        {
+            closest_zone = zone_red;
+            return true;
+        }
+        else
+            return false;
     }
 
     public void AttackClosestEnemy()
@@ -173,9 +217,42 @@ public class Follower : MonoBehaviour {
         this.GetComponent<Animator>().SetBool("attacking", true);
         if (target != null)
         {
-            agent.SetDestination(target.position);
-            
+            agent.SetDestination(target.position);         
         }
        detect_radius = 50;
+    }
+
+    public void Move_to_area()
+    {
+        if(closest_zone!=null)
+        {
+            agent.SetDestination(closest_zone.position);
+        }
+    }
+
+    public bool Check_occupy()
+    {
+        if (this.tag == "Mine")
+        {
+            if (closest_zone != null)
+            {
+                if (closest_zone.GetComponent<AdvantagePoint>().zone_control != 1)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        if (this.tag == "Enemy")
+        {
+            if (closest_zone != null)
+            {
+                if (closest_zone.GetComponent<AdvantagePoint>().zone_control != 2)
+                    return true;
+                else
+                    return false;
+            }
+        }
+        return false;
     }
 }

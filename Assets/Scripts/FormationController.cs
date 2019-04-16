@@ -57,6 +57,17 @@ public class FormationController : MonoBehaviour {
         {
             curr_slot = leader.leader_slots_2[index_troop].position;
         }
+
+        else if (leader.formation_flag == 3)
+        {
+            curr_slot = leader.leader_slots_3[index_troop].position;
+        }
+        else if (leader.formation_flag == 4)
+        {
+            curr_slot = leader.leader_slots_4[index_troop].position;
+        }
+
+
         agent.SetDestination(curr_slot);
 
         if (Vector3.Distance(curr_slot, this.transform.position) < 25)

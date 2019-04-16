@@ -67,11 +67,11 @@
     <Compile Include="Assets\Scripts\Behavior tree\Node.cs" />
     <Compile Include="Assets\Scripts\Behavior tree\Selector.cs" />
     <Compile Include="Assets\Scripts\Behavior tree\Sequencer.cs" />
-    <Compile Include="Assets\Scripts\Behaviour_Tree.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Follower.cs" />
     <Compile Include="Assets\Scripts\FormationController.cs" />
     <Compile Include="Assets\Scripts\Leader.cs" />
+    <Compile Include="Assets\Scripts\UI.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/troyp/Documents/5150_final_project/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

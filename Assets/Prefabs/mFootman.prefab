@@ -262,6 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6c50d740e424fdb8c95fdcf1f3b4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zone_red: {fileID: 0}
+  zone_blue: {fileID: 0}
   Army_anchors: {fileID: 0}
 --- !u!136 &136847182457613544
 CapsuleCollider:
